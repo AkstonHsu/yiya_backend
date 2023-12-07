@@ -16,7 +16,7 @@ public interface UserMapper extends BaseMapper<User> {
     User findByUnameAndPassword(String uname, String password);
     @Select("SELECT * FROM user WHERE uid = #{uid}")
     User selectByUid(Long uid);
-    @Insert("INSERT INTO user (uname, password) VALUES (#{uname}, #{password})")
+    @Insert("INSERT INTO user (uname, password ,role) VALUES (#{uname}, #{password},#{role})")
     @Options(useGeneratedKeys = true, keyProperty = "uid", keyColumn = "uid")
     void insertUser(User user);
 }

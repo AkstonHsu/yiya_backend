@@ -9,7 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 试卷服务实现类
+ *
+ * 该类提供了与试卷相关的服务，包括获取所有试卷、根据试卷ID获取完整试卷信息、
+ * 根据试卷ID获取正确答案等功能。
+ *
+ * @Author: Adrin
+ */
 @Service
 public class PaperImpl {
     @Autowired
@@ -18,27 +25,45 @@ public class PaperImpl {
     private QuestionMapper questionMapper;
     @Autowired
     private OptionMapper optionMapper;
-
+    /**
+     * 获取所有试卷
+     *
+     * @return 所有试卷的列表，如果没有试卷则返回null
+     */
     public List<Paper>getAllPapers(){
         if(paperMapper.getAllPaper()!=null){
             return paperMapper.getAllPaper();
         }
         return null;
     }
+    /**
+     * 根据试卷ID获取正确答案
+     *
+     * @param pid 试卷ID
+     * @return 正确答案，如果不存在则返回null
+     */
     public String getCorrectAnswerById(Long pid){
         if(paperMapper.getCorrectAnswerById(pid)!=null){
             return paperMapper.getCorrectAnswerById(pid);
         }
         return null;
     }
-
+    /**
+     * 根据试卷ID获取完整试卷信息
+     *
+     * @param pid 试卷ID
+     * @return 完整试卷信息，如果不存在则返回null
+     */
     public CompletePaper getCompletePaperById(long pid){
         Paper paper =paperMapper.getPaperById(pid);
         if(paper!=null){
+            // 根据试卷ID获取所有问题信息
             List<Question>questions=questionMapper.getQuestionByPaperId(pid);
             List<CompleteQuestion>completeQuestions=new ArrayList<>();
+            // 遍历每个问题，获取问题的选项信息
             for (Question question:questions){
                 List<Option>options=optionMapper.getOptionByQuestionId(question.getQid());
+                // 构建完整问题对象
                 CompleteQuestion completeQuestion=new CompleteQuestion(
                         question.getQid(),
                         question.getQuestionType(),
@@ -49,6 +74,7 @@ public class PaperImpl {
                 );
                 completeQuestions.add(completeQuestion);
             }
+            // 构建完整试卷对象
             CompletePaper completePaper = new CompletePaper(
                     paper.getPid(),
                     paper.getTitle(),

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 被试个人信息控制器
+ */
 @SuppressWarnings({"all"})
 @RestController
 @RequestMapping("/subject")
@@ -17,26 +19,49 @@ public class SubjectController {
     private SubjectInfoMapper subjectInfoMapper;
     @Autowired
     private SubjectInfoImpl subjectInfoImpl;
-
+    /**
+     * 获取被试个人信息接口
+     *
+     * @param uid 被试用户的ID
+     * @return 被试个人信息查询结果
+     */
     @GetMapping("/get")
     public Result<SubjectInfo>getInfoController(@RequestParam long uid){
+        // 调用被试信息服务，获取被试个人信息
         SubjectInfo subjectInfo=subjectInfoImpl.getSubjectInfo(uid);
         if(subjectInfo!=null){
+            // 查询成功
             return Result.success(subjectInfo,"查询被试个人信息成功");
         }
         return Result.error("404","无法找到该被试信息");
     }
+    /**
+     * 新增被试个人信息接口
+     *
+     * @param uid         被试用户的ID
+     * @param subjectInfo 被试个人信息
+     * @return 新增被试个人信息结果
+     */
+
     @PostMapping("/new")
     public Result<SubjectInfo>newInfoController(@RequestParam long uid,@RequestBody SubjectInfo subjectInfo){
+        // 调用被试信息服务，新增被试个人信息
         SubjectInfo subjectInfoTmp=subjectInfoImpl.insertSubjectInfo(uid, subjectInfo);
         if(subjectInfoTmp!=null){
+
             return Result.success(subjectInfoTmp,"新增被试个人信息成功");
         }
         return Result.error("400","该被试信息已经存在，需要使用更新操作");
     }
-
+    /**
+     * 更新被试个人信息接口
+     *
+     * @param subjectInfo 被试个人信息
+     * @return 更新被试个人信息结果
+     */
     @PostMapping("/update")
     public Result<SubjectInfo>updateInfoController(@RequestBody SubjectInfo subjectInfo){
+        // 调用被试信息服务，更新被试个人信息
         SubjectInfo subjectInfoTmp=subjectInfoImpl.updateSubjectInfo(subjectInfo);
         if (subjectInfoTmp!=null){
             return Result.success(subjectInfoTmp,"更新被试个人信息成功");

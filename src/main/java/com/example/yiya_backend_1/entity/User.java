@@ -10,7 +10,7 @@ public class User {
     private Long uid;
     private String uname;
     private String password;
-    private int role=0;
+    private int role;
 
     public Long getUid() {
         return uid;

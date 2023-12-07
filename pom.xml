@@ -70,6 +70,23 @@
             <optional>true</optional>
         </dependency>
 
+<!--        &lt;!&ndash; 添加JUnit 5的依赖项 &ndash;&gt;-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- 添加Mockito的依赖项 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.12.4</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

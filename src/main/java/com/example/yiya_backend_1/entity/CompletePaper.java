@@ -18,6 +18,10 @@ public class CompletePaper implements Serializable {
     @JsonProperty("questions")
     private List<CompleteQuestion> questions;
 
+    public CompletePaper() {
+
+    }
+
     public long getPid() {
         return pid;
     }
