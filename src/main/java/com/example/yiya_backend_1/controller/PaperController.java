@@ -10,6 +10,8 @@ import com.example.yiya_backend_1.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 /**
@@ -83,7 +85,7 @@ public class PaperController {
         // 从答题记录中获取用户信息、试卷信息等
         Long uid =answerRecord.getUid();
         Long pid = answerRecord.getPid();
-        Date testDate=answerRecord.getTestDate();
+        String testDate=answerRecord.getTestDate();
         String answerSheet=answerRecord.getAnswerSheet();
         // 调用试卷服务，获取试卷的正确答案
         String correctAnswer=paperImpl.getCorrectAnswerById(pid);

@@ -7,6 +7,9 @@ import com.example.yiya_backend_1.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 /**
  * 答题记录服务实现类
@@ -30,7 +33,7 @@ public class AnswerRecordImpl {
      * @param answerSheet 用户答题卡
      * @return 0表示成功，1表示试卷不存在，2表示用户不存在
      */
-    public int saveAnswerRecord(Long uid, Long pid, Date testDate, String answerSheet){
+    public int saveAnswerRecord(Long uid, Long pid, String testDate, String answerSheet){
         if(paperMapper.getPaperById(pid)!=null){
             if (userMapper.selectByUid(uid)!=null){
                 String correctAnswer= paperMapper.getCorrectAnswerById(pid);

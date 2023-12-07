@@ -9,6 +9,7 @@ public class Option {
     private Long oid;
     private String optionLetter;
     private String content;
+    private String src;
     public Long getQid() {
         return qid;
     }
@@ -41,6 +42,14 @@ public class Option {
         this.content = content;
     }
 
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+
     @Override
     public String toString() {
         return "Option{" +
@@ -48,6 +57,7 @@ public class Option {
                 ", oid=" + oid +
                 ", optionLetter='" + optionLetter + '\'' +
                 ", content='" + content + '\'' +
+                ", src='" + src + '\'' +
                 '}';
     }
 }

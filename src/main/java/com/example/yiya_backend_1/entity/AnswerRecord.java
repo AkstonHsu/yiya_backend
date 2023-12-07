@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.lang.reflect.Type;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @TableName("answerrecord")
@@ -14,9 +17,8 @@ public class AnswerRecord {
     private Long uid;
     private Long pid;
     private String answerSheet;
-    private Date testDate;
+    private String  testDate;
     private int correctCnt=0;
-
 
     public Long getAid() {
         return aid;
@@ -50,11 +52,11 @@ public class AnswerRecord {
         this.answerSheet = answerSheet;
     }
 
-    public Date getTestDate() {
+    public String getTestDate() {
         return testDate;
     }
 
-    public void setTestDate(Date testDate) {
+    public void setTestDate(String  testDate) {
         this.testDate = testDate;
     }
 
