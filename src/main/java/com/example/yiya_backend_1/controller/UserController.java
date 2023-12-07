@@ -23,7 +23,6 @@ public class UserController {
 //        List<User> list = userMapper.selectList(null);
 //        return list;
 //    }
-
     @PostMapping("/register")
     public Result<User>registController(@RequestBody User user){
         int code=userServiceImpl.registerService(user);

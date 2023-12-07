@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+/**
+ * @author Adrin
+ */
 @TableName("paper")
 public class Paper {
     @TableId(type = IdType.AUTO)
@@ -11,7 +14,11 @@ public class Paper {
     private String title;
     private String description;
     private String source;
+
     private int amount;
+    private String paperAudio;
+
+    private String correctAnswer;
 
     public Long getPid() {
         return pid;
@@ -53,6 +60,22 @@ public class Paper {
         this.amount = amount;
     }
 
+    public String getPaperAudio() {
+        return paperAudio;
+    }
+
+    public void setPaperAudio(String paperAudio) {
+        this.paperAudio = paperAudio;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
     @Override
     public String toString() {
         return "Paper{" +
@@ -61,6 +84,7 @@ public class Paper {
                 ", description='" + description + '\'' +
                 ", source='" + source + '\'' +
                 ", amount=" + amount +
+                ", paperAudio='" + paperAudio + '\'' +
                 '}';
     }
 }

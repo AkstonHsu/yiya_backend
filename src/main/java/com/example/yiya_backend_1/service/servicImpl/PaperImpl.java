@@ -19,6 +19,19 @@ public class PaperImpl {
     @Autowired
     private OptionMapper optionMapper;
 
+    public List<Paper>getAllPapers(){
+        if(paperMapper.getAllPaper()!=null){
+            return paperMapper.getAllPaper();
+        }
+        return null;
+    }
+    public String getCorrectAnswerById(Long pid){
+        if(paperMapper.getCorrectAnswerById(pid)!=null){
+            return paperMapper.getCorrectAnswerById(pid);
+        }
+        return null;
+    }
+
     public CompletePaper getCompletePaperById(long pid){
         Paper paper =paperMapper.getPaperById(pid);
         if(paper!=null){
@@ -41,6 +54,7 @@ public class PaperImpl {
                     paper.getTitle(),
                     paper.getDescription(),
                     paper.getSource(),
+                    paper.getPaperAudio(),
                     paper.getAmount(),
                     completeQuestions
             );

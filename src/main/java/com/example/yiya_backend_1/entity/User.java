@@ -12,11 +12,11 @@ public class User {
     private String password;
     private int role=0;
 
-    public long getUid() {
+    public Long getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 

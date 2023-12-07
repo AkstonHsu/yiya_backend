@@ -18,7 +18,7 @@ public class UserServiceImpl {
         if(userE!=null){
             return 402;
         }else{
-            userMapper.insert(user);
+            userMapper.insertUser(user);
             return 201;
         }
     }

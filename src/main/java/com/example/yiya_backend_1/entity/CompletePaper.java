@@ -13,6 +13,7 @@ public class CompletePaper implements Serializable {
 
     private String description;
     private String source;
+    private String paperAudio;
     private int amount;
     @JsonProperty("questions")
     private List<CompleteQuestion> questions;
@@ -49,6 +50,14 @@ public class CompletePaper implements Serializable {
         this.source = source;
     }
 
+    public String getPaperAudio() {
+        return paperAudio;
+    }
+
+    public void setPaperAudio(String paperAudio) {
+        this.paperAudio = paperAudio;
+    }
+
     public int getAmount() {
         return amount;
     }
@@ -64,13 +73,15 @@ public class CompletePaper implements Serializable {
     public void setQuestions(List<CompleteQuestion> questions) {
         this.questions = questions;
     }
+
     // Getters and Setters
 
-    public CompletePaper(long pid, String title, String description, String source, int amount, List<CompleteQuestion> questions) {
+    public CompletePaper(long pid, String title, String description, String source,  String paperAudio,int amount, List<CompleteQuestion> questions) {
         this.pid = pid;
         this.title = title;
         this.description = description;
         this.source = source;
+        this.paperAudio=paperAudio;
         this.amount = amount;
         this.questions = questions;
     }
