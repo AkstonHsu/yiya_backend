@@ -9,6 +9,7 @@ import com.example.yiya_backend_1.service.servicImpl.PaperImpl;
 import com.example.yiya_backend_1.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -110,5 +111,30 @@ public class PaperController {
             return Result.success(papers,"获取符合条件试卷成功");
         }
         return Result.error("404","符合条件的试卷不存在");
+    }
+    @PostMapping("/upload")
+    public Result<String> uploadPaper(@RequestParam("audioFile") MultipartFile audioFile,
+                                      @RequestParam("did") Long did, @RequestParam("title") String title,
+                                      @RequestParam("description") String description, @RequestParam("source") String source,
+                                      @RequestParam("amount") int amount, @RequestParam("correctAnswer") String correctAnswer,
+                                      @RequestParam("ageLimit") int ageLimit) {
+        // 构建试卷对象
+        Paper paper = new Paper();
+        paper.setDid(did);
+        paper.setTitle(title);
+        paper.setDescription(description);
+        paper.setSource(source);
+        paper.setAmount(amount);
+        paper.setCorrectAnswer(correctAnswer);
+        paper.setAgeLimit(ageLimit);
+
+        // 调用服务层的方法上传试卷
+        boolean success = paperImpl.uploadPaper(paper, audioFile);
+
+        if (success) {
+            return  Result.success("200","上传成功");
+        } else {
+            return  Result.error("404","上传失败");
+        }
     }
 }

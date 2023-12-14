@@ -6,6 +6,8 @@ import com.example.yiya_backend_1.mapper.DoctorInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DoctorInfoImpl {
     @Autowired
@@ -26,5 +28,27 @@ public class DoctorInfoImpl {
             return doctorInfo;
         }
         return null;
+    }
+
+
+
+    public List<DoctorInfo> getAllDoctors() {
+        return doctorInfoMapper.getAllDoctors();
+    }
+
+    public List<DoctorInfo> getDoctorsByPage(int page, int pageSize) {
+        int start = (page - 1) * pageSize;
+        return doctorInfoMapper.getDoctorsByPage(start, pageSize);
+    }
+
+    public List<DoctorInfo> searchDoctorsByName(String doctorName, int page, int pageSize) {
+        int start = (page - 1) * pageSize;
+        return doctorInfoMapper.searchDoctors(doctorName, start, pageSize);
+    }
+
+    public boolean deleteDoctor(long did) {
+        // 执行删除操作，这里假设删除成功返回true，否则返回false
+        int affectedRows = doctorInfoMapper.deleteDoctor(did);
+        return affectedRows > 0;
     }
 }

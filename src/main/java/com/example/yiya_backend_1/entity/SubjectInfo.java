@@ -27,6 +27,9 @@ public class SubjectInfo {
     private String side;
     private LocalDate openTime;
     private String cochlearBrand;
+    private int age;
+
+    private int testCoount;
 
     public long getId() {
         return id;
@@ -162,6 +165,22 @@ public class SubjectInfo {
 
     public void setCochlearBrand(String cochlearBrand) {
         this.cochlearBrand = cochlearBrand;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getTestCoount() {
+        return testCoount;
+    }
+
+    public void setTestCoount(int testCoount) {
+        this.testCoount = testCoount;
     }
 
     @Override

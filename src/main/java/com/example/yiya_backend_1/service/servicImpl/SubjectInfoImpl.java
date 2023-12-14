@@ -3,6 +3,7 @@ package com.example.yiya_backend_1.service.servicImpl;
 import com.example.yiya_backend_1.entity.AdminToSubject;
 import com.example.yiya_backend_1.entity.SubjectInfo;
 import com.example.yiya_backend_1.mapper.SubjectInfoMapper;
+import com.example.yiya_backend_1.utils.AgeCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,12 +55,25 @@ public class SubjectInfoImpl {
         }
         return null;
     }
-    /**
-     * 获取所有被试个人信息
-     *
-     * @return 所有被试个人信息列表
-     */
-    public List<AdminToSubject>getAllSubjectInfo(){
-        return subjectInfoMapper.getAllSubjectInfo();
+    public List<SubjectInfo> getSubjectsWithTestCountByPage(int page, int pageSize) {
+        int start = (page - 1) * pageSize;
+        List<SubjectInfo> subjects = subjectInfoMapper.getSubjectsWithTestCountByPage(start, pageSize);
+
+        // 对于每个受试者，计算年龄并设置到实体类中
+        for (SubjectInfo subject : subjects) {
+            int age = AgeCalculator.calculateAge(subject.getBirthday());
+            subject.setAge(age);
+        }
+
+        return subjects;
+    }
+    public List<SubjectInfo> getSubjectsWithTestCountByPageAndName(String name, int page, int pageSize) {
+        int start = (page - 1) * pageSize;
+        return subjectInfoMapper.getSubjectsWithTestCountByPageAndName(name, start, pageSize);
+    }
+    public boolean deleteSubject(long uid) {
+        // 执行删除操作，这里假设删除成功返回true，否则返回false
+        int affectedRows = subjectInfoMapper.deleteSubject(uid);
+        return affectedRows > 0;
     }
 }

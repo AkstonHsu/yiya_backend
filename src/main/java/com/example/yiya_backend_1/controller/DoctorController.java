@@ -7,6 +7,8 @@ import com.example.yiya_backend_1.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController {
@@ -41,4 +43,6 @@ public class DoctorController {
         }
         return Result.error("404","更新被试个人信息失败");
     }
+
+
 }

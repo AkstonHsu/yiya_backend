@@ -14,6 +14,10 @@ public class DoctorInfo {
     private String sex;
     private String workPlace;
 
+    private int onlineConsultationCnt;
+
+    private int paperProduceCnt;
+
     public long getDid() {
         return did;
     }
@@ -54,6 +58,22 @@ public class DoctorInfo {
         this.workPlace = workPlace;
     }
 
+    public int getOnlineConsultationCnt() {
+        return onlineConsultationCnt;
+    }
+
+    public void setOnlineConsultationCnt(int onlineConsultationCnt) {
+        this.onlineConsultationCnt = onlineConsultationCnt;
+    }
+
+    public int getPaperProduceCnt() {
+        return paperProduceCnt;
+    }
+
+    public void setPaperProduceCnt(int paperProduceCnt) {
+        this.paperProduceCnt = paperProduceCnt;
+    }
+
     @Override
     public String toString() {
         return "DoctorInfo{" +
@@ -62,6 +82,8 @@ public class DoctorInfo {
                 ", doctorName='" + doctorName + '\'' +
                 ", sex='" + sex + '\'' +
                 ", workPlace='" + workPlace + '\'' +
+                ", onlineConsultationCnt=" + onlineConsultationCnt +
+                ", paperProduceCnt=" + paperProduceCnt +
                 '}';
     }
 }

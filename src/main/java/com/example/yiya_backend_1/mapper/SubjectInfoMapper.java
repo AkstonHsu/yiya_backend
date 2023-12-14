@@ -33,4 +33,29 @@ public interface SubjectInfoMapper {
             "LEFT JOIN subjecttest t ON u.uid = t.uid " +
             "GROUP BY u.uname, s.childrenname, s.sex, s.birthday")
     List<AdminToSubject> getAllSubjectInfo();
+
+    @Select({
+            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, COUNT(ar.aid) AS testCount",
+            "FROM subjectinfo s",
+            "LEFT JOIN answerrecord ar ON s.uid = ar.uid",
+            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment",
+            "LIMIT #{start}, #{pageSize}"
+    })
+    List<SubjectInfo> getSubjectsWithTestCountByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+
+    @Select({
+            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, COUNT(ar.aid) AS testCount",
+            "FROM subjectinfo s",
+            "LEFT JOIN answerrecord ar ON s.uid = ar.uid",
+            "WHERE s.childrenname LIKE CONCAT('%', #{name}, '%')",
+            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment",
+            "LIMIT #{start}, #{pageSize}"
+    })
+    List<SubjectInfo> getSubjectsWithTestCountByPageAndName(
+            @Param("name") String name,
+            @Param("start") int start,
+            @Param("pageSize") int pageSize
+    );
+    @Delete("DELETE FROM subjectinfo WHERE uid = #{uid}")
+    int deleteSubject(@Param("uid") long uid);
 }

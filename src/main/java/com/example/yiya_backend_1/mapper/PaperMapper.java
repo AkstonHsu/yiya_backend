@@ -2,7 +2,9 @@ package com.example.yiya_backend_1.mapper;
 
 import com.example.yiya_backend_1.entity.CompletePaper;
 import com.example.yiya_backend_1.entity.Paper;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -18,4 +20,9 @@ public interface PaperMapper {
 
     @Select("SELECT pid, did, title, description, source, amount, paperAudio, ageLimit FROM paper WHERE ageLimit <= #{ageLimit}")
     List<Paper> getPapersByAgeLimit(int ageLimit);
+
+    @Insert("INSERT INTO paper (did, title, description, source, amount, paperAudio, correctAnswer, ageLimit) " +
+            "VALUES (#{did}, #{title}, #{description}, #{source}, #{amount}, #{paperAudio}, #{correctAnswer}, #{ageLimit})")
+    @Options(useGeneratedKeys = true, keyProperty = "pid")
+    int insertPaper(Paper paper);
 }
