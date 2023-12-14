@@ -95,14 +95,17 @@ public class PaperImpl {
 
     public List<Paper>getAllPaperByUid(long uid){
         SubjectInfo subjectInfo=subjectInfoMapper.getSubjectInfoByUid(uid);
-        int userAge= AgeCalculator.calculateAge(subjectInfo.getBirthday());
-        System.out.println("---------------userAge:   --------------------");
-        System.out.println(userAge);
-        List<Paper>papers = paperMapper.getPapersByAgeLimit(userAge);
-        for(Paper paper:papers){
-            String doctorNmae=doctorInfoMapper.getDoctorNameByDid(paper.getDid());
-            paper.setDoctorName(doctorNmae);
+        if(subjectInfo!=null){
+            int userAge= AgeCalculator.calculateAge(subjectInfo.getBirthday());
+            System.out.println("---------------userAge:   --------------------");
+            System.out.println(userAge);
+            List<Paper>papers = paperMapper.getPapersByAgeLimit(userAge);
+            for(Paper paper:papers){
+                String doctorNmae=doctorInfoMapper.getDoctorNameByDid(paper.getDid());
+                paper.setDoctorName(doctorNmae);
+            }
+            return papers;
         }
-        return papers;
+       return null;
     }
 }
