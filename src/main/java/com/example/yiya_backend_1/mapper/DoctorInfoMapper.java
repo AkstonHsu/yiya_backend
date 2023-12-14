@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface DoctorInfoMapper {
-    @Select("SELECT doctor_name FROM doctorinfo WHERE did = #{did}")
+    @Select("SELECT doctorName FROM doctorinfo WHERE did = #{did}")
     String getDoctorNameByDid(Long did);
 
     @Select("SELECT * FROM doctorinfo WHERE uid = #{uid}")
