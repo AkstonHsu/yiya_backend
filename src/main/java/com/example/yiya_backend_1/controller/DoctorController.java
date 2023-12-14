@@ -23,7 +23,7 @@ public class DoctorController {
         }
         return Result.error("404","无法找到该医生信息");
     }
-    @PutMapping ("/new")
+    @PostMapping ("/new")
     public Result<DoctorInfo>newDoctorInfoController(@RequestBody DoctorInfo doctorInfo){
         Long uid=doctorInfo.getUid();
         DoctorInfo doctorInfotmp=doctorInfoImpl.inserDoctorInfo(uid,doctorInfo);
@@ -32,7 +32,7 @@ public class DoctorController {
         }
         return Result.error("400","该医生信息已存在，需要更新操作");
     }
-    @PutMapping("/update")
+    @PostMapping("/update")
     public Result<DoctorInfo>updateDoctorInfoController(@RequestBody DoctorInfo doctorInfo){
         Long uid=doctorInfo.getUid();
         DoctorInfo doctorInfotmp=doctorInfoImpl.updateDoctorInfo(uid,doctorInfo);
