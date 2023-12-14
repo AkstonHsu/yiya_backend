@@ -1,9 +1,8 @@
 package com.example.yiya_backend_1.service.servicImpl;
 
 import com.example.yiya_backend_1.entity.*;
-import com.example.yiya_backend_1.mapper.OptionMapper;
-import com.example.yiya_backend_1.mapper.PaperMapper;
-import com.example.yiya_backend_1.mapper.QuestionMapper;
+import com.example.yiya_backend_1.mapper.*;
+import com.example.yiya_backend_1.utils.AgeCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +21,13 @@ public class PaperImpl {
     @Autowired
     private PaperMapper paperMapper;
     @Autowired
+    private SubjectInfoMapper subjectInfoMapper;
+    @Autowired
     private QuestionMapper questionMapper;
     @Autowired
     private OptionMapper optionMapper;
+    @Autowired
+    private DoctorInfoMapper doctorInfoMapper;
     /**
      * 获取所有试卷
      *
@@ -88,5 +91,18 @@ public class PaperImpl {
         }
 
         return null;
+    }
+
+    public List<Paper>getAllPaperByUid(long uid){
+        SubjectInfo subjectInfo=subjectInfoMapper.getSubjectInfoByUid(uid);
+        int userAge= AgeCalculator.calculateAge(subjectInfo.getBirthday());
+        System.out.println("---------------userAge:   --------------------");
+        System.out.println(userAge);
+        List<Paper>papers = paperMapper.getPapersByAgeLimit(userAge);
+        for(Paper paper:papers){
+            String doctorNmae=doctorInfoMapper.getDoctorNameByDid(paper.getDid());
+            paper.setDoctorName(doctorNmae);
+        }
+        return papers;
     }
 }

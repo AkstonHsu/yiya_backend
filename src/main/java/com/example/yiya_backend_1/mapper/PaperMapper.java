@@ -11,8 +11,11 @@ import java.util.List;
 public interface PaperMapper {
     @Select("SELECT * FROM paper WHERE pid = #{pid}")
     Paper getPaperById(Long pid);
-    @Select("SELECT pid, title, description, source, amount, paperAudio FROM paper")
+    @Select("SELECT pid, did, title, description, source, amount, paperAudio, ageLimit FROM paper")
     List<Paper> getAllPaper();
     @Select("SELECT correctAnswer FROM paper WHERE pid = #{pid}")
     String getCorrectAnswerById(Long pid);
+
+    @Select("SELECT pid, did, title, description, source, amount, paperAudio, ageLimit FROM paper WHERE ageLimit <= #{ageLimit}")
+    List<Paper> getPapersByAgeLimit(int ageLimit);
 }

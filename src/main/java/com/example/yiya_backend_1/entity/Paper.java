@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 public class Paper {
     @TableId(type = IdType.AUTO)
     private long pid;
+    private long did;
     private String title;
     private String description;
     private String source;
@@ -19,6 +20,10 @@ public class Paper {
     private String paperAudio;
 
     private String correctAnswer;
+
+    private int ageLimit;
+
+    private String doctorName;
 
     public Long getPid() {
         return pid;
@@ -76,15 +81,47 @@ public class Paper {
         this.correctAnswer = correctAnswer;
     }
 
+    public void setPid(long pid) {
+        this.pid = pid;
+    }
+
+    public long getDid() {
+        return did;
+    }
+
+    public void setDid(long did) {
+        this.did = did;
+    }
+
+    public int getAgeLimit() {
+        return ageLimit;
+    }
+
+    public void setAgeLimit(int ageLimit) {
+        this.ageLimit = ageLimit;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
     @Override
     public String toString() {
         return "Paper{" +
                 "pid=" + pid +
+                ", did=" + did +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", source='" + source + '\'' +
                 ", amount=" + amount +
                 ", paperAudio='" + paperAudio + '\'' +
+                ", correctAnswer='" + correctAnswer + '\'' +
+                ", ageLimit=" + ageLimit +
+                ", doctorName='" + doctorName + '\'' +
                 '}';
     }
 }

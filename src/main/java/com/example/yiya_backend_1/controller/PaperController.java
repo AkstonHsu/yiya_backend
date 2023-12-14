@@ -102,6 +102,13 @@ public class PaperController {
         }
 
         return Result.error("404","正确答案不存在");
-
+    }
+    @GetMapping("/get/uid")
+    public Result<List<Paper>>getAllPaperByUid(@RequestParam Long uid){
+        List<Paper> papers=paperImpl.getAllPaperByUid(uid);
+        if(papers!=null){
+            return Result.success(papers,"获取符合条件试卷成功");
+        }
+        return Result.error("404","符合条件的试卷不存在");
     }
 }

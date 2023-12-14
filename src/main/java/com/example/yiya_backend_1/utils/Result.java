@@ -36,19 +36,19 @@ public class Result<T> {
     }
     public static Result success(){
         Result result = new Result<>();
-        result.setCode("0");
+        result.setCode("200");
         result.setMsg("成功");
         return result;
     }
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>(data);
-        result.setCode("0");
+        result.setCode("200");
         result.setMsg("成功");
         return result;
     }
     public static <T> Result<T> success(T data,String msg) {
         Result<T> result = new Result<>(data);
-        result.setCode("0");
+        result.setCode("200");
         result.setMsg(msg);
         return result;
     }

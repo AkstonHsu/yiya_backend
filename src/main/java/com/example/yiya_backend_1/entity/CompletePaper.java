@@ -15,6 +15,8 @@ public class CompletePaper implements Serializable {
     private String source;
     private String paperAudio;
     private int amount;
+
+    private int ageLimit;
     @JsonProperty("questions")
     private List<CompleteQuestion> questions;
 
