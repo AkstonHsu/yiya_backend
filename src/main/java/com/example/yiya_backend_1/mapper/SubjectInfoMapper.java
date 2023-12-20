@@ -35,20 +35,20 @@ public interface SubjectInfoMapper {
     List<AdminToSubject> getAllSubjectInfo();
 
     @Select({
-            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, COUNT(ar.aid) AS testCount",
+            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand, COUNT(ar.aid) AS testCount",
             "FROM subjectinfo s",
             "LEFT JOIN answerrecord ar ON s.uid = ar.uid",
-            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment",
+            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand",
             "LIMIT #{start}, #{pageSize}"
     })
     List<SubjectInfo> getSubjectsWithTestCountByPage(@Param("start") int start, @Param("pageSize") int pageSize);
 
     @Select({
-            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, COUNT(ar.aid) AS testCount",
+            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand, COUNT(ar.aid) AS testCount",
             "FROM subjectinfo s",
             "LEFT JOIN answerrecord ar ON s.uid = ar.uid",
             "WHERE s.childrenname LIKE CONCAT('%', #{name}, '%')",
-            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment",
+            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand",
             "LIMIT #{start}, #{pageSize}"
     })
     List<SubjectInfo> getSubjectsWithTestCountByPageAndName(
@@ -58,4 +58,37 @@ public interface SubjectInfoMapper {
     );
     @Delete("DELETE FROM subjectinfo WHERE uid = #{uid}")
     int deleteSubject(@Param("uid") long uid);
+
+    @Select({
+            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand, COUNT(ar.aid) AS testCount",
+            "FROM subjectinfo s",
+            "LEFT JOIN answerrecord ar ON s.uid = ar.uid",
+            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand"
+    })
+    List<SubjectInfo> getAllSubjectsWithTestCount();
+
+    @Select({
+            "<script>",
+            "SELECT s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand, COUNT(ar.aid) AS testCount",
+            "FROM subjectinfo s",
+            "LEFT JOIN answerrecord ar ON s.uid = ar.uid",
+            "WHERE 1=1",
+            "<if test='name != null and name.trim() neq \"\"'>",
+            "   AND s.childrenname LIKE CONCAT('%', #{name}, '%')",
+            "</if>",
+            "<if test='sex != null and sex.trim() neq \"\"'>",
+            "   AND s.sex = #{sex}",
+            "</if>",
+            "<if test='languageDevelopment != null and languageDevelopment.trim() neq \"\"'>",
+            "   AND s.languageDevelopment LIKE CONCAT('%', #{languageDevelopment}, '%')",
+            "</if>",
+            "GROUP BY s.uid, s.childrenname, s.sex, s.birthday, s.languageDevelopment, s.dialect, s.academicRecord, s.residence, s.urbanOrRural, s.sibling, s.contacts, s.accompany, s.side, s.openTime, s.cochlearBrand",
+            "</script>"
+    })
+    List<SubjectInfo> searchSubjectInfo(
+            @Param("name") String name,
+            @Param("sex") String sex,
+            @Param("languageDevelopment") String languageDevelopment
+    );
+
 }

@@ -39,6 +39,7 @@ public class DoctorController {
         Long uid=doctorInfo.getUid();
         DoctorInfo doctorInfotmp=doctorInfoImpl.updateDoctorInfo(uid,doctorInfo);
         if(doctorInfotmp!=null){
+
             return Result.success(doctorInfotmp,"更新医生信息成功");
         }
         return Result.error("404","更新被试个人信息失败");

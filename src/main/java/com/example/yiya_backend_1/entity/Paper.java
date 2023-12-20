@@ -24,6 +24,7 @@ public class Paper {
     private int ageLimit;
 
     private String doctorName;
+    private String questionList;
 
     public Long getPid() {
         return pid;
@@ -109,6 +110,14 @@ public class Paper {
         this.doctorName = doctorName;
     }
 
+    public String getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(String questionList) {
+        this.questionList = questionList;
+    }
+
     @Override
     public String toString() {
         return "Paper{" +
@@ -122,6 +131,7 @@ public class Paper {
                 ", correctAnswer='" + correctAnswer + '\'' +
                 ", ageLimit=" + ageLimit +
                 ", doctorName='" + doctorName + '\'' +
+                ", questionList='" + questionList + '\'' +
                 '}';
     }
 }

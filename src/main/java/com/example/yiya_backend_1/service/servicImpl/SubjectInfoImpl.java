@@ -76,4 +76,22 @@ public class SubjectInfoImpl {
         int affectedRows = subjectInfoMapper.deleteSubject(uid);
         return affectedRows > 0;
     }
+
+    public List<SubjectInfo>getAllSubjectInfo(){
+        List<SubjectInfo>subjects= subjectInfoMapper.getAllSubjectsWithTestCount();
+        for (SubjectInfo subject : subjects) {
+            int age = AgeCalculator.calculateAge(subject.getBirthday());
+            subject.setAge(age);
+        }
+        return subjects;
+    }
+
+    public List<SubjectInfo>searchSubjectInfo(String childrenname,String sex, String languageDevelopment){
+        List<SubjectInfo>subjects= subjectInfoMapper.searchSubjectInfo(childrenname,sex,languageDevelopment);
+        for (SubjectInfo subject : subjects) {
+            int age = AgeCalculator.calculateAge(subject.getBirthday());
+            subject.setAge(age);
+        }
+        return subjects;
+    }
 }

@@ -112,29 +112,13 @@ public class PaperController {
         }
         return Result.error("404","符合条件的试卷不存在");
     }
-    @PostMapping("/upload")
-    public Result<String> uploadPaper(@RequestParam("audioFile") MultipartFile audioFile,
-                                      @RequestParam("did") Long did, @RequestParam("title") String title,
-                                      @RequestParam("description") String description, @RequestParam("source") String source,
-                                      @RequestParam("amount") int amount, @RequestParam("correctAnswer") String correctAnswer,
-                                      @RequestParam("ageLimit") int ageLimit) {
-        // 构建试卷对象
-        Paper paper = new Paper();
-        paper.setDid(did);
-        paper.setTitle(title);
-        paper.setDescription(description);
-        paper.setSource(source);
-        paper.setAmount(amount);
-        paper.setCorrectAnswer(correctAnswer);
-        paper.setAgeLimit(ageLimit);
 
-        // 调用服务层的方法上传试卷
-        boolean success = paperImpl.uploadPaper(paper, audioFile);
-
-        if (success) {
-            return  Result.success("200","上传成功");
-        } else {
-            return  Result.error("404","上传失败");
+    @PostMapping("/paper/new")
+    public Result<Paper>newPaperController(@RequestBody Paper paper){
+        Paper newPaper=paperImpl.newPaper(paper);
+        if(newPaper!=null){
+            return Result.success(newPaper,"新增试卷成功");
         }
+        return Result.error("400","新增试卷失败");
     }
 }

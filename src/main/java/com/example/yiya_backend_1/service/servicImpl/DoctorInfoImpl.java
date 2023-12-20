@@ -41,14 +41,18 @@ public class DoctorInfoImpl {
         return doctorInfoMapper.getDoctorsByPage(start, pageSize);
     }
 
-    public List<DoctorInfo> searchDoctorsByName(String doctorName, int page, int pageSize) {
-        int start = (page - 1) * pageSize;
-        return doctorInfoMapper.searchDoctors(doctorName, start, pageSize);
+//    public List<DoctorInfo> searchDoctorsByName(String doctorName, int page, int pageSize) {
+//        int start = (page - 1) * pageSize;
+//        return doctorInfoMapper.searchDoctors(doctorName, start, pageSize);
+//    }
+
+    public boolean deleteDoctor(long uid) {
+        // 执行删除操作，这里假设删除成功返回true，否则返回false
+        int affectedRows = doctorInfoMapper.deleteDoctor(uid);
+        return affectedRows > 0;
     }
 
-    public boolean deleteDoctor(long did) {
-        // 执行删除操作，这里假设删除成功返回true，否则返回false
-        int affectedRows = doctorInfoMapper.deleteDoctor(did);
-        return affectedRows > 0;
+    public List<DoctorInfo>searchDoctors(String doctorName,String sex,String professionalTitle){
+        return doctorInfoMapper.searchDoctors(doctorName,sex,professionalTitle);
     }
 }

@@ -21,8 +21,8 @@ public interface PaperMapper {
     @Select("SELECT pid, did, title, description, source, amount, paperAudio, ageLimit FROM paper WHERE ageLimit <= #{ageLimit}")
     List<Paper> getPapersByAgeLimit(int ageLimit);
 
-    @Insert("INSERT INTO paper (did, title, description, source, amount, paperAudio, correctAnswer, ageLimit) " +
-            "VALUES (#{did}, #{title}, #{description}, #{source}, #{amount}, #{paperAudio}, #{correctAnswer}, #{ageLimit})")
+    @Insert("INSERT INTO paper (did, title, description, source , ageLimit) " +
+            "VALUES (#{did}, #{title}, #{description}, #{source} , #{ageLimit})")
     @Options(useGeneratedKeys = true, keyProperty = "pid")
     int insertPaper(Paper paper);
 }

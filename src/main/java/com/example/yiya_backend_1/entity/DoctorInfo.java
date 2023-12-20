@@ -18,6 +18,9 @@ public class DoctorInfo {
 
     private int paperProduceCnt;
 
+    private String professionalTitle;
+    private String department;
+    private String graduateSchool;
     public long getDid() {
         return did;
     }
@@ -74,6 +77,30 @@ public class DoctorInfo {
         this.paperProduceCnt = paperProduceCnt;
     }
 
+    public String getProfessionalTitle() {
+        return professionalTitle;
+    }
+
+    public void setProfessionalTitle(String professionalTitle) {
+        this.professionalTitle = professionalTitle;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getGraduateSchool() {
+        return graduateSchool;
+    }
+
+    public void setGraduateSchool(String graduateSchool) {
+        this.graduateSchool = graduateSchool;
+    }
+
     @Override
     public String toString() {
         return "DoctorInfo{" +
@@ -84,6 +111,9 @@ public class DoctorInfo {
                 ", workPlace='" + workPlace + '\'' +
                 ", onlineConsultationCnt=" + onlineConsultationCnt +
                 ", paperProduceCnt=" + paperProduceCnt +
+                ", professionalTitle='" + professionalTitle + '\'' +
+                ", department='" + department + '\'' +
+                ", graduateSchool='" + graduateSchool + '\'' +
                 '}';
     }
 }
