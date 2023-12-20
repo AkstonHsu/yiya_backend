@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class CompleteQuestion {
+    @JsonProperty("qid")
     private long qid;
     @JsonProperty("questionType")
     private int questionType;

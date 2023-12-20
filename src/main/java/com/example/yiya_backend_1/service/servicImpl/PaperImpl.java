@@ -125,4 +125,59 @@ public class PaperImpl {
         paperMapper.insertPaper(paper);
         return paper;
     }
+
+//    /**
+//     * 保存音频文件到相对于项目的路径
+//     *
+//     * @param audioFile 音频文件
+//     * @param pid       试卷ID
+//     * @return 是否保存成功
+//     */
+//    private boolean saveAudioFile(MultipartFile audioFile, long pid) {
+//        try {
+//            // 创建文件保存路径，包含试卷ID
+//            String fileName = StringUtils.cleanPath(Objects.requireNonNull(audioFile.getOriginalFilename()));
+//            Path filePath = Paths.get(staticDir, "test", "temp", String.valueOf(pid), fileName);
+//
+//            // 创建目录
+//            Files.createDirectories(filePath.getParent());
+//
+//            // 保存文件
+//            audioFile.transferTo(filePath.toFile());
+//
+//            return true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+//
+//    /**
+//     * 上传试卷，包括保存音频文件和插入试卷信息
+//     *
+//     * @param paper     试卷信息
+//     * @param audioFile 试卷音频文件
+//     * @return 是否上传成功
+//     */
+//    public boolean uploadPaper(Paper paper, MultipartFile audioFile) {
+//        try {
+//            // 保存音频文件
+//            if (saveAudioFile(audioFile, paper.getPid())) {
+//                // 设置试卷的音频路径
+//                paper.setPaperAudio("http://localhost:8082/test/temp/" + String.valueOf(paper.getPid()) + "/" + Objects.requireNonNull(audioFile.getOriginalFilename()));
+//            } else {
+//                // 处理文件保存失败的情况
+//                return false;
+//            }
+//
+//            // 调用Mapper插入试卷
+//            int rowsInserted = paperMapper.insertPaper(paper);
+//
+//            // 返回插入结果
+//            return rowsInserted > 0;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 }
