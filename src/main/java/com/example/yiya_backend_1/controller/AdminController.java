@@ -13,7 +13,11 @@ import org.springframework.http.converter.feed.RssChannelHttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 管理员控制器
+ *
+ * @Author: Adrin
+ */
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -21,7 +25,11 @@ public class AdminController {
     private SubjectInfoImpl subjectInfoImpl;
     @Autowired
     private DoctorInfoImpl doctorInfoImpl;
-
+    /**
+     * 查询所有医生信息接口
+     *
+     * @return 所有医生信息查询结果
+     */
     @GetMapping("/doctor/getAll")
     public Result<List<DoctorInfo>>getAllDoctorInfoController(){
         List<DoctorInfo> doctorInfos=doctorInfoImpl.getAllDoctors();
@@ -30,6 +38,14 @@ public class AdminController {
         }
         return Result.error("404","没有医生信息");
     }
+    /**
+     * 搜索医生信息接口
+     *
+     * @param doctorName        医生姓名
+     * @param sex               医生性别
+     * @param professionalTitle 医生职称
+     * @return 搜索医生信息结果
+     */
     @GetMapping("/doctor/search")
     public Result<List<DoctorInfo>>searchDoctorController(@RequestParam String doctorName,@RequestParam String sex,@RequestParam String professionalTitle){
         List<DoctorInfo>doctorInfos=doctorInfoImpl.searchDoctors(doctorName,sex,professionalTitle);
@@ -38,6 +54,12 @@ public class AdminController {
         }
         return Result.error("404","该医生不存在");
     }
+    /**
+     * 删除医生信息接口
+     *
+     * @param uid 医生用户的ID
+     * @return 删除医生信息结果
+     */
     @DeleteMapping("/doctor/delete")
     public Result<String> deleteDoctorController(@RequestParam long uid) {
         boolean success = doctorInfoImpl.deleteDoctor(uid);
@@ -84,6 +106,11 @@ public class AdminController {
 //        return Result.success(subjects, "带有模糊查询的分页查询成功");
 //    }
 
+    /**
+     * 查询所有被试者信息接口
+     *
+     * @return 所有被试者信息查询结果
+     */
     @GetMapping("/subject/getAll")
     public Result<List<SubjectInfo>>getAllSubjectInfoController(){
         List<SubjectInfo>subjectInfos= subjectInfoImpl.getAllSubjectInfo();
@@ -92,15 +119,28 @@ public class AdminController {
         }
         return Result.error("404","没有被试信息");
     }
-
+    /**
+     * 搜索被试者信息接口
+     *
+     * @param childrenName        被试者姓名
+     * @param sex                 被试者性别
+     * @param languageDevelopment 被试者语言发展
+     * @return 搜索被试者信息结果
+     */
     @GetMapping("/subject/search")
     public Result<List<SubjectInfo>>searchSubjectController(@RequestParam String childrenName,@RequestParam String sex,@RequestParam String languageDevelopment){
         List<SubjectInfo>subjectInfos=subjectInfoImpl.searchSubjectInfo(childrenName,sex,languageDevelopment);
         if (subjectInfos!=null){
             return Result.success(subjectInfos,"搜索被试信息成功");
         }
-        else return Result.error("404","该被试信息不存在");
+        return Result.error("404","该被试信息不存在");
     }
+    /**
+     * 删除被试者信息接口
+     *
+     * @param uid 被试者用户的ID
+     * @return 删除被试者信息结果
+     */
     @DeleteMapping("/subject/delete")
     public Result<String> deleteSubject(@RequestParam long uid) {
         boolean success = subjectInfoImpl.deleteSubject(uid);

@@ -31,4 +31,8 @@ public class CompleteQuestion {
         this.order = order;
         this.options = options;
     }
+
+    public CompleteQuestion() {
+
+    }
 }

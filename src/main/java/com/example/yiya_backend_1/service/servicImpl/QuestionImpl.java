@@ -142,34 +142,38 @@ public class QuestionImpl {
         return 2;
     }
 
-//    public int deleteQuestion(long pid, long qid) {
-//        String questionList = paperMapper.getQuestionListByPid(pid);
-//        Question question = questionMapper.getQuestionById(qid);
-//
-//        if (question != null && questionList != null) {
-//            List<String> questionIds = new ArrayList<>(Arrays.asList(questionList.split(",")));
-//
-//            if (questionIds.contains(String.valueOf(qid))) {
-//                // 如果包含，将qid从questionList中移除
-//                questionIds.remove(String.valueOf(qid));
-//
-//                // 将修改后的questionList重新拼接
-//                questionList = String.join(",", questionIds);
-//
-//                // 更新数据库中的questionList
-//                paperMapper.updateQuestionListByPid(pid, questionList);
-//
-//                // 删除问题成功
-//                return 0;
-//            } else {
-//                // 如果不包含，返回1表示删除失败（问题不存在于questionList中）
-//                return 1;
-//            }
-//        } else {
-//            // 如果question为null或questionList为null，返回2表示删除失败（问题不存在或问题列表为空）
-//            return 2;
-//        }
-//    }
+    public int removeQuestion(long pid, long qid) {
+        String questionList = paperMapper.getQuestionListByPid(pid);
+        Question question = questionMapper.getQuestionById(qid);
+        if (question != null) {
+            if (questionList != null) {
+                List<String> questionIds = new ArrayList<>(Arrays.asList(questionList.split(",")));
+                if (questionIds.contains(String.valueOf(qid))) {
+                    // 如果包含，将qid从questionList中移除
+                    questionList = questionList.replace(String.valueOf(qid), "").replace(",,", ",").replaceAll("^,|,$", "");
+                    questionIds.remove(String.valueOf(qid));
+
+                    int questionCount = questionIds.size();
+                    List<String> correctAnswers = questionMapper.getCorrectAnswersByQuestionList(questionList);
+                    String correctAnswerString = String.join("", correctAnswers);
+
+                    paperMapper.updatePaper(pid, questionList, questionCount, correctAnswerString);
+
+                    // 删除问题成功
+                    return 0;
+                } else {
+                    // 该试题不存在于试卷中，无法删除
+                    return 1;
+                }
+            } else {
+                // 试卷中没有问题，无法删除
+                return 1;
+            }
+        }
+        // 要删除的问题不存在
+        return 2;
+    }
+
 
     public CompleteQuestion getCompleteQuestionByQid(long qid){
         Question question=questionMapper.getQuestionById(qid);

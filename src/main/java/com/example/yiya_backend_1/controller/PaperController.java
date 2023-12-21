@@ -104,6 +104,13 @@ public class PaperController {
 
         return Result.error("404","正确答案不存在");
     }
+
+    /**
+     * 根据用户ID获取符合条件的试卷接口
+     *
+     * @param uid 用户ID
+     * @return 符合条件的试卷查询结果
+     */
     @GetMapping("/get/uid")
     public Result<List<Paper>>getAllPaperByUid(@RequestParam Long uid){
         List<Paper> papers=paperImpl.getAllPaperByUid(uid);
@@ -112,7 +119,12 @@ public class PaperController {
         }
         return Result.error("404","符合条件的试卷不存在");
     }
-
+    /**
+     * 新增试卷接口
+     *
+     * @param paper 新增的试卷
+     * @return 新增试卷结果
+     */
     @PostMapping("/paper/new")
     public Result<Paper>newPaperController(@RequestBody Paper paper){
         Paper newPaper=paperImpl.newPaper(paper);
@@ -121,7 +133,12 @@ public class PaperController {
         }
         return Result.error("400","新增试卷失败");
     }
-
+    /**
+     * 删除试卷接口
+     *
+     * @param pid 试卷ID
+     * @return 删除试卷结果
+     */
     @DeleteMapping("/delete")
     public Result<String> deletePaperController(@RequestParam long pid) {
         boolean success = paperImpl.deletePaper(pid);
@@ -131,7 +148,13 @@ public class PaperController {
             return Result.error("404", "删除失败,该试卷不存在");
         }
     }
-
+    /**
+     * 搜索试卷接口
+     *
+     * @param title  试卷标题
+     * @param source 试卷来源
+     * @return 搜索试卷结果
+     */
     @PostMapping("/paper/search")
     public Result<List<Paper>>searchPaper(@RequestParam String title,@RequestParam String source){
         List<Paper>papers=paperImpl.searchPaper(title,source);

@@ -72,7 +72,11 @@ public class SubjectController {
         }
         return Result.error("404","更新被试个人信息失败");
     }
-
+    /**
+     * 获取所有被试测试结果接口
+     *
+     * @return 所有被试测试结果
+     */
     @GetMapping("/test/get")
     public Result<List<SubjectWithAnswerRecord>>getAllSubjectWithRecordController(){
         List<SubjectWithAnswerRecord>subjectWithAnswerRecords=answerRecordImpl.getAllSubjectWithAnswerRecord();
@@ -81,7 +85,14 @@ public class SubjectController {
         }
         return Result.error("404","被试测试结果不存在");
     }
-
+    /**
+     * 搜索被试测试结果接口
+     *
+     * @param childrenName         孩子姓名
+     * @param sex                  性别
+     * @param languageDevelopment  语言发展
+     * @return 符合条件的被试测试结果
+     */
     @GetMapping("/test/search")
     public Result<List<SubjectWithAnswerRecord>>searchSubjectWithRecordController(@RequestParam String childrenName,@RequestParam String sex,@RequestParam String languageDevelopment){
         List<SubjectWithAnswerRecord>subjectWithAnswerRecords=answerRecordImpl.searchSubjectWithAnswerRecord(childrenName,sex,languageDevelopment);
