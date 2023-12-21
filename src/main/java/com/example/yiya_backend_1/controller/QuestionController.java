@@ -1,6 +1,7 @@
 package com.example.yiya_backend_1.controller;
 
 import com.example.yiya_backend_1.entity.CompleteQuestion;
+import com.example.yiya_backend_1.entity.Paper;
 import com.example.yiya_backend_1.entity.Question;
 import com.example.yiya_backend_1.mapper.QuestionMapper;
 import com.example.yiya_backend_1.service.servicImpl.QuestionImpl;
@@ -63,4 +64,37 @@ public class QuestionController {
         }
         return Result.error("400","新增题目失败");
     }
+
+    @GetMapping("/get/paper")
+    public Result<List<CompleteQuestion>>getPaperQuestionController(@RequestParam long pid){
+        List<CompleteQuestion>completeQuestions=questionImpl.getQuestionByPaper(pid);
+        if(completeQuestions!=null){
+            return Result.success(completeQuestions,"查询单份试卷题目成功");
+        }
+        return Result.error("404","查询该试卷题目失败");
+    }
+    @PostMapping("/add")
+    public Result<Integer>addQuestionController(@RequestParam long pid, @RequestParam long qid){
+        int code=questionImpl.addQuestion(pid,qid);
+        if(code==0){
+            return Result.success(200,"增加试题成功");
+        } else if (code==1) {
+            return Result.error("400","该试题已经存在");
+        }else {
+            return Result.error("404","该试题不存在");
+        }
+    }
+
+    @DeleteMapping("/remove")
+    public Result<Integer> deleteQuestionController(@RequestParam long pid, @RequestParam long qid) {
+        int code = questionImpl.deleteQuestion(pid, qid);
+        if (code == 0) {
+            return Result.success(200, "删除试题成功");
+        } else if (code == 1) {
+            return Result.error("400", "该试题不存在于试卷中，无法删除");
+        } else {
+            return Result.error("404", "该试题不存在");
+        }
+    }
+
 }

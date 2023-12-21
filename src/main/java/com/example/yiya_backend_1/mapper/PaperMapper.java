@@ -2,10 +2,7 @@ package com.example.yiya_backend_1.mapper;
 
 import com.example.yiya_backend_1.entity.CompletePaper;
 import com.example.yiya_backend_1.entity.Paper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,4 +22,11 @@ public interface PaperMapper {
             "VALUES (#{did}, #{title}, #{description}, #{source} , #{ageLimit})")
     @Options(useGeneratedKeys = true, keyProperty = "pid")
     int insertPaper(Paper paper);
+
+    @Select("SELECT questionList FROM paper WHERE pid = #{pid}")
+    String getQuestionListByPid(Long pid);
+    @Update("UPDATE paper SET questionList = #{questionList} WHERE pid = #{pid}")
+    void updateQuestionListByPid(@Param("pid") Long pid, @Param("questionList") String questionList);
+
+
 }

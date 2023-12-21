@@ -76,5 +76,8 @@ public interface DoctorInfoMapper {
             @Param("sex") String sex,
             @Param("professionalTitle") String professionalTitle
     );
+
+    @Select("SELECT did FROM doctorinfo WHERE uid = #{uid}")
+    Long getDidByUid(Long uid);
 }
 

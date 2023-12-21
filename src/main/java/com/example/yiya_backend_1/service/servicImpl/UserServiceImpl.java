@@ -2,6 +2,7 @@ package com.example.yiya_backend_1.service.servicImpl;
 
 
 import com.example.yiya_backend_1.entity.User;
+import com.example.yiya_backend_1.mapper.DoctorInfoMapper;
 import com.example.yiya_backend_1.mapper.UserMapper;
 import com.example.yiya_backend_1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl {
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    DoctorInfoMapper doctorInfoMapper;
     /**
      * 用户注册服务
      *
@@ -39,6 +43,14 @@ public class UserServiceImpl {
     public User loginService(String uname,String password){
         User user= userMapper.findByUnameAndPassword(uname, password);
         if(user!=null){
+            if(user.getRole()==2){
+                Long did=doctorInfoMapper.getDidByUid(user.getUid());
+                if(did!=null){
+                    user.setDid(did);
+                }
+
+
+            }
             user.setPassword("");
         }
         return user;

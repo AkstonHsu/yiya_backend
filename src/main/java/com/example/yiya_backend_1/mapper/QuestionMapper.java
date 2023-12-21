@@ -1,6 +1,7 @@
 package com.example.yiya_backend_1.mapper;
 
 import com.example.yiya_backend_1.entity.Option;
+import com.example.yiya_backend_1.entity.Paper;
 import com.example.yiya_backend_1.entity.Question;
 import org.apache.ibatis.annotations.*;
 
@@ -12,6 +13,7 @@ public interface QuestionMapper {
 //    List<Question> getQuestionByPaperId(long pid);
     @Select("SELECT * FROM question WHERE FIND_IN_SET(qid, #{questionList}) > 0")
     List<Question> getQuestionsByPaperId(@Param("questionList") String questionList);
+
 
     @Select("SELECT * FROM question")
     List<Question>getAllQuestions();
@@ -53,5 +55,6 @@ public interface QuestionMapper {
     @Insert("INSERT INTO question (questionType, questionTitle) VALUES ( #{questionType}, #{questionTitle})")
     int insertQuestionType2(Question question);
 
-
+    @Select("SELECT * FROM question WHERE qid = #{qid}")
+    Question getQuestionById(Long qid);
 }

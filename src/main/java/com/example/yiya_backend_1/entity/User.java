@@ -12,6 +12,8 @@ public class User {
     private String password;
     private int role;
 
+    private Long did;
+
     public Long getUid() {
         return uid;
     }
@@ -44,6 +46,14 @@ public class User {
         this.role = role;
     }
 
+    public Long getDid() {
+        return did;
+    }
+
+    public void setDid(Long did) {
+        this.did = did;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -51,6 +61,7 @@ public class User {
                 ", uname='" + uname + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", did=" + did +
                 '}';
     }
 }
