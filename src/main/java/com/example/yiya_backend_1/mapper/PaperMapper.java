@@ -10,6 +10,9 @@ import java.util.List;
 public interface PaperMapper {
     @Select("SELECT * FROM paper WHERE pid = #{pid}")
     Paper getPaperById(Long pid);
+
+    @Select("SELECT title FROM paper WHERE pid = #{pid}")
+    String getTitleById(Long pid);
     @Select("SELECT pid, did, title, description, source, amount, paperAudio, ageLimit FROM paper")
     List<Paper> getAllPaper();
     @Select("SELECT correctAnswer FROM paper WHERE pid = #{pid}")
@@ -35,5 +38,20 @@ public interface PaperMapper {
     @Delete("DELETE FROM paper WHERE pid = #{pid}")
     int deletePaper(@Param("pid") long pid);
 
-
+    @Select({
+            "<script>",
+            "SELECT * FROM paper",
+            "WHERE 1=1",
+            "<if test='title != null and title.trim() neq \"\"'>",
+            "   AND title LIKE CONCAT('%', #{title}, '%')",
+            "</if>",
+            "<if test='source != null and source.trim() neq \"\"'>",
+            "   AND source LIKE CONCAT('%', #{source}, '%')",
+            "</if>",
+            "</script>"
+    })
+    List<Paper> searchPaper(
+            @Param("title") String title,
+            @Param("source") String source
+    );
 }

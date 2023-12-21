@@ -136,6 +136,10 @@ public class PaperImpl {
         int af= paperMapper.deletePaper(pid);
         return affectedRows > 0;
     }
+
+    public List<Paper>searchPaper(String title,String source){
+        return paperMapper.searchPaper(title,source);
+    }
 //    /**
 //     * 保存音频文件到相对于项目的路径
 //     *

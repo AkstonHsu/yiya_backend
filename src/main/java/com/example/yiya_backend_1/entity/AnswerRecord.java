@@ -19,7 +19,7 @@ public class AnswerRecord {
     private String answerSheet;
     private String  testDate;
     private int correctCnt=0;
-
+    private String title;
     public Long getAid() {
         return aid;
     }
@@ -66,6 +66,14 @@ public class AnswerRecord {
 
     public void setCorrectCnt(int correctCnt) {
         this.correctCnt = correctCnt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override

@@ -131,4 +131,13 @@ public class PaperController {
             return Result.error("404", "删除失败,该试卷不存在");
         }
     }
+
+    @PostMapping("/paper/search")
+    public Result<List<Paper>>searchPaper(@RequestParam String title,@RequestParam String source){
+        List<Paper>papers=paperImpl.searchPaper(title,source);
+        if (papers!=null){
+            return Result.success(papers,"搜索试卷成功");
+        }
+        return Result.error("404","试卷不存在");
+    }
 }

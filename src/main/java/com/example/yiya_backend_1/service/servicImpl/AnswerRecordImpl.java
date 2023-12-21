@@ -49,7 +49,9 @@ public class AnswerRecordImpl {
                 int correctCnt=calculateCorrectCnt(answerSheet,correctAnswer);
                 System.out.println("------------正确答案个数------------------");
                 System.out.println(correctCnt);
+                String title=paperMapper.getTitleById(pid);
                 AnswerRecord answerRecord=new AnswerRecord();
+                answerRecord.setTitle(title);
                 answerRecord.setUid(uid);
                 answerRecord.setPid(pid);
                 answerRecord.setTestDate(testDate);

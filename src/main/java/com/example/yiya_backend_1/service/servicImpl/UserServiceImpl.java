@@ -48,8 +48,6 @@ public class UserServiceImpl {
                 if(did!=null){
                     user.setDid(did);
                 }
-
-
             }
             user.setPassword("");
         }
