@@ -121,4 +121,14 @@ public class PaperController {
         }
         return Result.error("400","新增试卷失败");
     }
+
+    @DeleteMapping("/delete")
+    public Result<String> deletePaperController(@RequestParam long pid) {
+        boolean success = paperImpl.deletePaper(pid);
+        if (success) {
+            return Result.success(null, "删除试卷成功");
+        } else {
+            return Result.error("404", "删除失败,该试卷不存在");
+        }
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.yiya_backend_1.controller;
 
 import com.example.yiya_backend_1.entity.SubjectInfo;
+import com.example.yiya_backend_1.entity.SubjectWithAnswerRecord;
 import com.example.yiya_backend_1.mapper.SubjectInfoMapper;
+import com.example.yiya_backend_1.service.servicImpl.AnswerRecordImpl;
 import com.example.yiya_backend_1.service.servicImpl.SubjectInfoImpl;
 import com.example.yiya_backend_1.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class SubjectController {
     private SubjectInfoMapper subjectInfoMapper;
     @Autowired
     private SubjectInfoImpl subjectInfoImpl;
+    @Autowired
+    private AnswerRecordImpl answerRecordImpl;
     /**
      * 获取被试个人信息接口
      *
@@ -67,5 +71,23 @@ public class SubjectController {
             return Result.success(subjectInfoTmp,"更新被试个人信息成功");
         }
         return Result.error("404","更新被试个人信息失败");
+    }
+
+    @GetMapping("/test/get")
+    public Result<List<SubjectWithAnswerRecord>>getAllSubjectWithRecordController(){
+        List<SubjectWithAnswerRecord>subjectWithAnswerRecords=answerRecordImpl.getAllSubjectWithAnswerRecord();
+        if(subjectWithAnswerRecords!=null){
+            return Result.success(subjectWithAnswerRecords,"成功查询所有被试测试结果");
+        }
+        return Result.error("404","被试测试结果不存在");
+    }
+
+    @GetMapping("/test/search")
+    public Result<List<SubjectWithAnswerRecord>>searchSubjectWithRecordController(@RequestParam String childrenName,@RequestParam String sex,@RequestParam String languageDevelopment){
+        List<SubjectWithAnswerRecord>subjectWithAnswerRecords=answerRecordImpl.searchSubjectWithAnswerRecord(childrenName,sex,languageDevelopment);
+        if(subjectWithAnswerRecords!=null){
+            return Result.success(subjectWithAnswerRecords,"成功查询所有被试测试结果");
+        }
+        return Result.error("404","被试测试结果不存在");
     }
 }

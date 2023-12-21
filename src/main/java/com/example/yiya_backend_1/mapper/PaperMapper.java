@@ -29,4 +29,11 @@ public interface PaperMapper {
     void updatePaper(@Param("pid") Long pid, @Param("questionList") String questionList,
                      @Param("amount") Integer amount, @Param("correctAnswer") String correctAnswer);
 
+    @Delete("DELETE FROM answerrecord WHERE pid = #{pid}")
+    int deleteAnswerRecord(@Param("pid") long pid);
+
+    @Delete("DELETE FROM paper WHERE pid = #{pid}")
+    int deletePaper(@Param("pid") long pid);
+
+
 }

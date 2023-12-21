@@ -1,16 +1,23 @@
 package com.example.yiya_backend_1.service.servicImpl;
 
 import com.example.yiya_backend_1.entity.AnswerRecord;
+import com.example.yiya_backend_1.entity.SubjectInfo;
+import com.example.yiya_backend_1.entity.SubjectWithAnswerRecord;
 import com.example.yiya_backend_1.mapper.AnswerRecordMapper;
 import com.example.yiya_backend_1.mapper.PaperMapper;
+import com.example.yiya_backend_1.mapper.SubjectInfoMapper;
 import com.example.yiya_backend_1.mapper.UserMapper;
+import com.example.yiya_backend_1.utils.AgeCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 /**
  * 答题记录服务实现类
  *
@@ -24,6 +31,8 @@ public class AnswerRecordImpl {
     private UserMapper userMapper;
     @Autowired
     private PaperMapper paperMapper;
+    @Autowired
+    private SubjectInfoMapper subjectInfoMapper;
     /**
      * 保存答题记录
      *
@@ -91,4 +100,51 @@ public class AnswerRecordImpl {
          return -2;
     }
 
+    public List<SubjectWithAnswerRecord> getAllSubjectWithAnswerRecord(){
+        List<SubjectInfo>subjectInfos=subjectInfoMapper.getAllSubjectsWithTestCount();
+        List<SubjectWithAnswerRecord>subjectWithAnswerRecords=new ArrayList<>();
+        for (SubjectInfo subjectInfo:subjectInfos){
+            List<AnswerRecord>answerRecords=answerRecordMapper.getAnswerRecord(subjectInfo.getUid());
+            System.out.println("--------------------------------------------------------\n");
+            System.out.println(subjectInfo.getChildrenname());
+            int age = AgeCalculator.calculateAge(subjectInfo.getBirthday());
+            subjectInfo.setAge(age);
+            int testCnt=answerRecordMapper.getTestCountByUserId(subjectInfo.getUid());
+            subjectInfo.setTestCoount(testCnt);
+            SubjectWithAnswerRecord subjectWithAnswerRecord=new SubjectWithAnswerRecord(
+                    subjectInfo.getChildrenname(),
+                    subjectInfo.getAge(),
+                    subjectInfo.getSex(),
+                    subjectInfo.getLanguageDevelopment(),
+                    subjectInfo.getTestCoount(),
+                    answerRecords
+            );
+            subjectWithAnswerRecords.add(subjectWithAnswerRecord);
+        }
+        return subjectWithAnswerRecords;
+    }
+
+    public List<SubjectWithAnswerRecord> searchSubjectWithAnswerRecord(String childrenname,String sex, String languageDevelopment){
+        List<SubjectInfo>subjectInfos=subjectInfoMapper.searchSubjectInfo(childrenname,sex,languageDevelopment);
+        List<SubjectWithAnswerRecord>subjectWithAnswerRecords=new ArrayList<>();
+        for (SubjectInfo subjectInfo:subjectInfos){
+            List<AnswerRecord>answerRecords=answerRecordMapper.getAnswerRecord(subjectInfo.getUid());
+            System.out.println("--------------------------------------------------------\n");
+            System.out.println(subjectInfo.getChildrenname());
+            int age = AgeCalculator.calculateAge(subjectInfo.getBirthday());
+            subjectInfo.setAge(age);
+            int testCnt=answerRecordMapper.getTestCountByUserId(subjectInfo.getUid());
+            subjectInfo.setTestCoount(testCnt);
+            SubjectWithAnswerRecord subjectWithAnswerRecord=new SubjectWithAnswerRecord(
+                    subjectInfo.getChildrenname(),
+                    subjectInfo.getAge(),
+                    subjectInfo.getSex(),
+                    subjectInfo.getLanguageDevelopment(),
+                    subjectInfo.getTestCoount(),
+                    answerRecords
+            );
+            subjectWithAnswerRecords.add(subjectWithAnswerRecord);
+        }
+        return subjectWithAnswerRecords;
+    }
 }

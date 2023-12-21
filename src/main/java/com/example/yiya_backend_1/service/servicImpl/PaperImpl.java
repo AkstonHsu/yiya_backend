@@ -90,6 +90,8 @@ public class PaperImpl {
                 );
                 completeQuestions.add(completeQuestion);
             }
+            String doctorName=doctorInfoMapper.getDoctorNameByDid(paper.getDid());
+            paper.setDoctorName(doctorName);
             // 构建完整试卷对象
             CompletePaper completePaper = new CompletePaper(
                     paper.getPid(),
@@ -98,6 +100,7 @@ public class PaperImpl {
                     paper.getSource(),
                     paper.getPaperAudio(),
                     paper.getAmount(),
+                    paper.getDoctorName(),
                     completeQuestions
             );
             return completePaper;
@@ -127,6 +130,12 @@ public class PaperImpl {
         return paper;
     }
 
+    public boolean deletePaper(long pid) {
+        // 执行删除操作，这里假设删除成功返回true，否则返回false
+        int affectedRows = paperMapper.deleteAnswerRecord(pid);
+        int af= paperMapper.deletePaper(pid);
+        return affectedRows > 0;
+    }
 //    /**
 //     * 保存音频文件到相对于项目的路径
 //     *
