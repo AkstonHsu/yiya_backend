@@ -57,4 +57,7 @@ public interface QuestionMapper {
 
     @Select("SELECT * FROM question WHERE qid = #{qid}")
     Question getQuestionById(Long qid);
+
+    @Select("SELECT correctAnswer FROM question WHERE FIND_IN_SET(qid, #{questionList}) > 0")
+    List<String> getCorrectAnswersByQuestionList(@Param("questionList") String questionList);
 }

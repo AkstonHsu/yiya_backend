@@ -26,7 +26,14 @@ public class QuestionController {
         }
         return Result.error("404","题库中没有试题");
     }
-
+    @GetMapping("/get/one")
+    public Result<CompleteQuestion>getOneQuestionController(@RequestParam long qid){
+        CompleteQuestion completeQuestion=questionImpl.getCompleteQuestionByQid(qid);
+        if(completeQuestion!=null){
+            return Result.success(completeQuestion,"获取一道完整试题成功");
+        }
+        return Result.error("404","该试题不存在");
+    }
     @GetMapping("/search")
     public Result<List<CompleteQuestion>>searchQuestionController(@RequestParam(required = false) Integer questionType,@RequestParam String questionTitle){
         if(questionType==null){
@@ -85,16 +92,16 @@ public class QuestionController {
         }
     }
 
-    @DeleteMapping("/remove")
-    public Result<Integer> deleteQuestionController(@RequestParam long pid, @RequestParam long qid) {
-        int code = questionImpl.deleteQuestion(pid, qid);
-        if (code == 0) {
-            return Result.success(200, "删除试题成功");
-        } else if (code == 1) {
-            return Result.error("400", "该试题不存在于试卷中，无法删除");
-        } else {
-            return Result.error("404", "该试题不存在");
-        }
-    }
+//    @DeleteMapping("/remove")
+//    public Result<Integer> deleteQuestionController(@RequestParam long pid, @RequestParam long qid) {
+//        int code = questionImpl.deleteQuestion(pid, qid);
+//        if (code == 0) {
+//            return Result.success(200, "删除试题成功");
+//        } else if (code == 1) {
+//            return Result.error("400", "该试题不存在于试卷中，无法删除");
+//        } else {
+//            return Result.error("404", "该试题不存在");
+//        }
+//    }
 
 }

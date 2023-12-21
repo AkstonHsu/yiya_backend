@@ -15,16 +15,19 @@ public class CompleteQuestion {
     private String questionAudio;
     @JsonProperty("order")
     private int order;
+    @JsonProperty("correctAnswer")
+    private String correctAnswer;
     @JsonProperty("options")
     private List<Option> options;
 
     // Getters and Setters
 
-    public CompleteQuestion(long qid, int questionType, String questionTitle, String questionAudio, int order, List<Option> options) {
+    public CompleteQuestion(long qid, int questionType, String questionTitle, String questionAudio,String correctAnswer, int order, List<Option> options) {
         this.qid = qid;
         this.questionType = questionType;
         this.questionTitle = questionTitle;
         this.questionAudio = questionAudio;
+        this.correctAnswer=correctAnswer;
         this.order = order;
         this.options = options;
     }

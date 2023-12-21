@@ -84,6 +84,7 @@ public class PaperImpl {
                         question.getQuestionType(),
                         question.getQuestionTitle(),
                         question.getQuestionAudio(),
+                        question.getCorrectAnswer(),
                         question.getOrder(),
                         options
                 );

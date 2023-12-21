@@ -14,6 +14,7 @@ public class Question {
     private String questionAudio;
     private int order;
 
+    private String correctAnswer;
 
     public long getQid() {
         return qid;
@@ -63,6 +64,14 @@ public class Question {
         this.order = order;
     }
 
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
@@ -72,6 +81,7 @@ public class Question {
                 ", questionTitle='" + questionTitle + '\'' +
                 ", questionAudio='" + questionAudio + '\'' +
                 ", order=" + order +
+                ", correctAnswer='" + correctAnswer + '\'' +
                 '}';
     }
 }

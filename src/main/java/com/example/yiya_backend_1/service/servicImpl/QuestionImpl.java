@@ -31,6 +31,7 @@ public class QuestionImpl {
                     question.getQuestionType(),
                     question.getQuestionTitle(),
                     question.getQuestionAudio(),
+                    question.getCorrectAnswer(),
                     question.getOrder(),
                     options
             );
@@ -50,6 +51,7 @@ public class QuestionImpl {
                     question.getQuestionType(),
                     question.getQuestionTitle(),
                     question.getQuestionAudio(),
+                    question.getCorrectAnswer(),
                     question.getOrder(),
                     options
             );
@@ -68,6 +70,7 @@ public class QuestionImpl {
                     question.getQuestionType(),
                     question.getQuestionTitle(),
                     question.getQuestionAudio(),
+                    question.getCorrectAnswer(),
                     question.getOrder(),
                     options
             );
@@ -100,6 +103,7 @@ public class QuestionImpl {
                     question.getQuestionType(),
                     question.getQuestionTitle(),
                     question.getQuestionAudio(),
+                    question.getCorrectAnswer(),
                     question.getOrder(),
                     options
             );
@@ -112,20 +116,25 @@ public class QuestionImpl {
         String questionList= paperMapper.getQuestionListByPid(pid);
         Question question=questionMapper.getQuestionById(qid);
         if(question!=null){
+            List<String> questionIds = null;
             if (questionList == null) {
                 questionList = String.valueOf(qid);
             } else {
                 // 如果questionList不为null，检查是否已经包含了qid
-                List<String> questionIds = Arrays.asList(questionList.split(","));
+                questionIds = new ArrayList<>(Arrays.asList(questionList.split(",")));
                 if (!questionIds.contains(String.valueOf(qid))) {
                     // 如果不包含，将qid添加到questionList中
                     questionList =  questionList +  "," + qid;
+                    questionIds.add(String.valueOf(qid));
                 } else {
                     //已经包含该问题
                     return 1;
                 }
             }
-            paperMapper.updateQuestionListByPid(pid,questionList);
+            int questionCount = questionIds.size();
+            List<String>correctAnswers=questionMapper.getCorrectAnswersByQuestionList(questionList);
+            String correctAnswerString = String.join("", correctAnswers);
+            paperMapper.updatePaper(pid,questionList,questionCount,correctAnswerString);
             //增加问题成功
             return 0;
         }
@@ -133,34 +142,49 @@ public class QuestionImpl {
         return 2;
     }
 
-    public int deleteQuestion(long pid, long qid) {
-        String questionList = paperMapper.getQuestionListByPid(pid);
-        Question question = questionMapper.getQuestionById(qid);
+//    public int deleteQuestion(long pid, long qid) {
+//        String questionList = paperMapper.getQuestionListByPid(pid);
+//        Question question = questionMapper.getQuestionById(qid);
+//
+//        if (question != null && questionList != null) {
+//            List<String> questionIds = new ArrayList<>(Arrays.asList(questionList.split(",")));
+//
+//            if (questionIds.contains(String.valueOf(qid))) {
+//                // 如果包含，将qid从questionList中移除
+//                questionIds.remove(String.valueOf(qid));
+//
+//                // 将修改后的questionList重新拼接
+//                questionList = String.join(",", questionIds);
+//
+//                // 更新数据库中的questionList
+//                paperMapper.updateQuestionListByPid(pid, questionList);
+//
+//                // 删除问题成功
+//                return 0;
+//            } else {
+//                // 如果不包含，返回1表示删除失败（问题不存在于questionList中）
+//                return 1;
+//            }
+//        } else {
+//            // 如果question为null或questionList为null，返回2表示删除失败（问题不存在或问题列表为空）
+//            return 2;
+//        }
+//    }
 
-        if (question != null && questionList != null) {
-            List<String> questionIds = new ArrayList<>(Arrays.asList(questionList.split(",")));
+    public CompleteQuestion getCompleteQuestionByQid(long qid){
+        Question question=questionMapper.getQuestionById(qid);
 
-            if (questionIds.contains(String.valueOf(qid))) {
-                // 如果包含，将qid从questionList中移除
-                questionIds.remove(String.valueOf(qid));
-
-                // 将修改后的questionList重新拼接
-                questionList = String.join(",", questionIds);
-
-                // 更新数据库中的questionList
-                paperMapper.updateQuestionListByPid(pid, questionList);
-
-                // 删除问题成功
-                return 0;
-            } else {
-                // 如果不包含，返回1表示删除失败（问题不存在于questionList中）
-                return 1;
-            }
-        } else {
-            // 如果question为null或questionList为null，返回2表示删除失败（问题不存在或问题列表为空）
-            return 2;
-        }
+            List<Option>options=optionMapper.getOptionByQuestionId(question.getQid());
+            // 构建完整问题对象
+            CompleteQuestion completeQuestion=new CompleteQuestion(
+                    question.getQid(),
+                    question.getQuestionType(),
+                    question.getQuestionTitle(),
+                    question.getQuestionAudio(),
+                    question.getCorrectAnswer(),
+                    question.getOrder(),
+                    options
+            );
+        return completeQuestion;
     }
-
-
 }

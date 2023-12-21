@@ -25,8 +25,8 @@ public interface PaperMapper {
 
     @Select("SELECT questionList FROM paper WHERE pid = #{pid}")
     String getQuestionListByPid(Long pid);
-    @Update("UPDATE paper SET questionList = #{questionList} WHERE pid = #{pid}")
-    void updateQuestionListByPid(@Param("pid") Long pid, @Param("questionList") String questionList);
-
+    @Update("UPDATE paper SET questionList = #{questionList}, amount = #{amount}, correctAnswer = #{correctAnswer} WHERE pid = #{pid}")
+    void updatePaper(@Param("pid") Long pid, @Param("questionList") String questionList,
+                     @Param("amount") Integer amount, @Param("correctAnswer") String correctAnswer);
 
 }
